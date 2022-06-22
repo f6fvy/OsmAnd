@@ -150,15 +150,11 @@ public class OsmAndFormatter {
 		return fullTimeFormatter.format(calendar.getTime(), twelveHoursFormat);
 	}
 
-	public static String getFormattedTimeShort(long seconds, boolean useCurrentTime) {
+	public static String getFormattedFutureTimeShort(long futureSeconds) {
 		Calendar calendar = Calendar.getInstance();
-		if (useCurrentTime) {
-			calendar.setTimeInMillis(System.currentTimeMillis() + seconds * 1000);
-		} else {
-			calendar.setTimeInMillis(seconds * 1000);
-		}
+		calendar.setTimeInMillis(System.currentTimeMillis() + futureSeconds * 1000);
 		Date date = calendar.getTime();
-		String formattedTime = shortTimeFormatter.format(date, true);
+		String formattedTime = shortTimeFormatter.format(date, twelveHoursFormat);
 		if (!isSameDay(calendar, Calendar.getInstance())) {
 			formattedTime += " " + localDaysStr[calendar.get(Calendar.DAY_OF_WEEK)];
 		}
